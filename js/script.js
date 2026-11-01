@@ -48,3 +48,39 @@ if (charltonForm) {
     charltonForm.reset();
   });
 }
+
+/* Load editable homepage content from Pages CMS */
+
+async function loadHomepageContent() {
+  const heading = document.getElementById("hero-heading");
+  const highlight = document.getElementById("hero-highlight");
+  const description = document.getElementById("hero-description");
+
+  if (!heading || !highlight || !description) return;
+
+  try {
+    const response = await fetch("content/home.json", {
+      cache: "no-cache"
+    });
+
+    if (!response.ok) throw new Error("Content unavailable");
+
+    const content = await response.json();
+
+    if (typeof content.hero_heading === "string") {
+      heading.textContent = content.hero_heading;
+    }
+
+    if (typeof content.hero_highlight === "string") {
+      highlight.textContent = content.hero_highlight;
+    }
+
+    if (typeof content.hero_description === "string") {
+      description.textContent = content.hero_description;
+    }
+  } catch (error) {
+    console.warn("Using default homepage content.", error);
+  }
+}
+
+loadHomepageContent();
