@@ -4,13 +4,25 @@ media:
   output: /images
 
 content:
-  - name: pages
-    label: Website Pages
+  - name: homepage
+    label: Homepage Content
     type: file
-    path: index.html
+    path: content/home.json
+    format: json
+    operations:
+      delete: false
     fields:
-      - name: body
-        label: Homepage HTML
-        type: code
-        options:
-          language: html
+      - name: hero_heading
+        label: Hero Heading
+        type: string
+        required: true
+
+      - name: hero_highlight
+        label: Highlighted Heading
+        type: string
+        required: true
+
+      - name: hero_description
+        label: Hero Description
+        type: text
+        required: true
